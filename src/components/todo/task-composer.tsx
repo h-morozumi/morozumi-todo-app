@@ -38,7 +38,7 @@ export function TaskComposer({ onSubmit }: TaskComposerProps) {
         <label htmlFor="new-task" className="text-sm font-medium text-slate-200">
           Add something meaningful
         </label>
-        <p className="text-xs text-slate-400">Capture the task, then tag its importance.</p>
+        <p className="text-xs text-slate-400">Capture the task, then tag its importance and deadline.</p>
       </div>
       <div className="flex flex-col gap-3 sm:flex-row">
         <input
@@ -51,15 +51,20 @@ export function TaskComposer({ onSubmit }: TaskComposerProps) {
           autoComplete="off"
           aria-label="New task description"
         />
-        <input
-          id="task-deadline"
-          name="task-deadline"
-          type="date"
-          value={deadline}
-          onChange={(event) => setDeadline(event.target.value)}
-          className="rounded-xl border border-white/10 bg-slate-900/40 px-4 py-3 text-base text-white placeholder:text-slate-400 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/40"
-          aria-label="Task deadline (optional)"
-        />
+        <div className="flex flex-col gap-1">
+          <label htmlFor="task-deadline" className="text-xs font-medium text-slate-300">
+            Deadline (optional)
+          </label>
+          <input
+            id="task-deadline"
+            name="task-deadline"
+            type="date"
+            value={deadline}
+            onChange={(event) => setDeadline(event.target.value)}
+            className="rounded-xl border border-white/10 bg-slate-900/40 px-4 py-3 text-base text-white placeholder:text-slate-400 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/40"
+            aria-label="Task deadline (optional)"
+          />
+        </div>
         <button
           type="submit"
           disabled={!title.trim()}
