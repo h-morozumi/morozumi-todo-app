@@ -79,6 +79,7 @@ export function TaskList({ tasks, onToggle, onDelete }: TaskListProps) {
             </div>
             <p className="text-xs uppercase tracking-wide text-slate-400">
               Added {formatter.format(new Date(task.createdAt))} · {IMPORTANCE_LABEL[task.importance]}
+              {task.deadline && ` · Due ${formatter.format(new Date(task.deadline))}`}
             </p>
           </div>
           <button

@@ -13,4 +13,5 @@ export interface Task {
   createdAt: string;
   importance: TaskImportance;
   completedAt?: string;
+  deadline?: string;
 }

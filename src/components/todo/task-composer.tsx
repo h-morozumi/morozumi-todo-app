@@ -4,7 +4,7 @@ import { useState } from "react";
 import type { TaskImportance } from "./types";
 
 interface TaskComposerProps {
-  onSubmit: (title: string, importance: TaskImportance) => void;
+  onSubmit: (title: string, importance: TaskImportance, deadline?: string) => void;
 }
 
 const IMPORTANCE_OPTIONS: { id: TaskImportance; label: string; hint: string }[] = [
@@ -16,15 +16,17 @@ const IMPORTANCE_OPTIONS: { id: TaskImportance; label: string; hint: string }[] 
 export function TaskComposer({ onSubmit }: TaskComposerProps) {
   const [title, setTitle] = useState("");
   const [importance, setImportance] = useState<TaskImportance>("medium");
+  const [deadline, setDeadline] = useState("");
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const trimmed = title.trim();
     if (!trimmed) return;
 
-    onSubmit(trimmed, importance);
+    onSubmit(trimmed, importance, deadline || undefined);
     setTitle("");
     setImportance("medium");
+    setDeadline("");
   }
 
   return (
@@ -48,6 +50,15 @@ export function TaskComposer({ onSubmit }: TaskComposerProps) {
           className="flex-1 rounded-xl border border-white/10 bg-slate-900/40 px-4 py-3 text-base text-white placeholder:text-slate-400 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/40"
           autoComplete="off"
           aria-label="New task description"
+        />
+        <input
+          id="task-deadline"
+          name="task-deadline"
+          type="date"
+          value={deadline}
+          onChange={(event) => setDeadline(event.target.value)}
+          className="rounded-xl border border-white/10 bg-slate-900/40 px-4 py-3 text-base text-white placeholder:text-slate-400 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/40"
+          aria-label="Task deadline (optional)"
         />
         <button
           type="submit"
