@@ -83,7 +83,7 @@ export function TodoApp() {
   const mediumCount = tasks.filter((task) => task.importance === "medium").length;
   const lowCount = tasks.filter((task) => task.importance === "low").length;
 
-  const addTask = (title: string, importance: TaskImportance) => {
+  const addTask = (title: string, importance: TaskImportance, deadline?: string) => {
     setTasks((current) => [
       {
         id: crypto.randomUUID(),
@@ -91,6 +91,7 @@ export function TodoApp() {
         status: "active",
         createdAt: new Date().toISOString(),
         importance,
+        deadline,
       },
       ...current,
     ]);

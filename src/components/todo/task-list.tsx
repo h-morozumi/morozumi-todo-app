@@ -21,6 +21,12 @@ const formatter = new Intl.DateTimeFormat("en", {
   minute: "2-digit",
 });
 
+const dateOnlyFormatter = new Intl.DateTimeFormat("en", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+});
+
 export function TaskList({ tasks, onToggle, onDelete }: TaskListProps) {
   if (!tasks.length) {
     return (
@@ -79,6 +85,7 @@ export function TaskList({ tasks, onToggle, onDelete }: TaskListProps) {
             </div>
             <p className="text-xs uppercase tracking-wide text-slate-400">
               Added {formatter.format(new Date(task.createdAt))} · {IMPORTANCE_LABEL[task.importance]}
+              {task.deadline && ` · Due ${dateOnlyFormatter.format(new Date(task.deadline))}`}
             </p>
           </div>
           <button
